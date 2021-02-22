@@ -14,9 +14,12 @@ class Ticket(models.Model):
     ]
     title = models.CharField(max_length=100)
     created_at = models.DateTimeField(default=timezone.now)
-    description = models.CharField(max_length=100)
-    creator = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    description = models.TextField()
+    creator = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     status = models.CharField(max_length=14, choices=TICKET_STATUS_CHOICES, default='New')
-    assigned = models.ForeignKey(CustomUser, related_name='assigned_ticket', on_delete=models.CASCADE)
-    completed = models.ForeignKey(CustomUser, related_name='completed_ticket', on_delete=models.CASCADE)
+    assigned = models.ForeignKey(CustomUser, related_name='assigned_ticket', on_delete=models.CASCADE, null=True)
+    completed = models.ForeignKey(CustomUser, related_name='completed_ticket', on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return f'{self.title} | {self.creator}'
 

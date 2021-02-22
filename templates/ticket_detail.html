@@ -11,6 +11,13 @@
     <span><a href="/submit">Submit Ticket</a></span>
     <span><a href="/logout">Logout</a></span>
 
-    <h1>{{ heading }}</h1>
+    <h1>{{ ticket.title}} </h1>
+    <h3>Info</h3>
+    <p>Status: {{ ticket.status }}</p>
+    <p>Reported by: {{ ticket.creator }}</p>
+    <h3>Description</h3>
+    <p>{{ ticket.description }}</p>
+    <p>Assigned: {{ ticket.assigned }}</p>
+    <p>Completed: {{ ticket.completed }}</p>
 </body>
 </html>

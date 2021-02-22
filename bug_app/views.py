@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from bug_app.models import CustomUser, Ticket
-from bug_app.forms import LoginForm
+from bug_app.forms import LoginForm, TicketForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -32,3 +32,30 @@ def logout_view(request):
 @login_required
 def ticket_view (request):
     return render(request, 'tickets.html', {'heading': 'This is the ticket page'})
+
+@login_required
+def submit_view(request):
+    context = {}
+    if request.method == 'POST':
+        form = TicketForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            new_data = Ticket.objects.create(
+                title = data['title'],
+                description = data['description']
+            )
+            return HttpResponseRedirect(reverse('ticket_details', args=[new_data.id]))
+    
+    form = TicketForm()
+    context.update({
+        'form': form,
+        'heading': 'Submit a Ticket',
+        'subheading': 'What\'s wrong? Something broken? Write it down!'
+    })
+    return render(request, 'submit.html', context)
+
+@login_required
+def ticket_details(request, ticket_id):
+    ticket = Ticket.objects.get(id=ticket_id)
+    return render(request, 'ticket_detail.html', {'ticket': ticket})
+
