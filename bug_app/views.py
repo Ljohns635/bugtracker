@@ -97,6 +97,9 @@ def ticket_edit(request, ticket_id):
     return render(request, 'submit.html', context)
 
 @login_required
-def ticket_status(request):
-    edit_item = Ticket.objects.get()
-    edit_item.assigned = 'In Progress'
+def progress_status(request, status_id):
+    edit_item = Ticket.objects.get(id=status_id)
+    edit_item.status = 'In Progress'
+    edit_item.assigned = request.user
+    edit_item.save()
+    return HttpResponseRedirect(reverse('ticket_details', args=[edit_item.id]))
