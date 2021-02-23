@@ -26,12 +26,10 @@
     <span><a href="#">Mark Ticket as invalid</a></span>
     {% elif ticket.status == 'In Progress' %}
     <span><a href="/edit/{{ticket.id}}/">Edit</a></span>
-    <span><a href="#">Complete</a></span>
-    <span><a href="#">Return Ticket</a></span>
+    <span><a href="/completed/{{ticket.id}}/">Complete</a></span>
     <span><a href="#">Mark Ticket as Invalid</a></span>
     {% else %}
     <span><a href="/edit/{{ticket.id}}/">Edit</a></span>
-    <span><a href="#">Return Ticket</a></span>
     <span><a href="#">Mark Ticket as Invalid</a></span>
     {% endif %}
 </body>

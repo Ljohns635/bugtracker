@@ -103,3 +103,12 @@ def progress_status(request, status_id):
     edit_item.assigned = request.user
     edit_item.save()
     return HttpResponseRedirect(reverse('ticket_details', args=[edit_item.id]))
+
+
+@login_required
+def completed_status(request, status_id):
+    edit_item = Ticket.objects.get(id=status_id)
+    edit_item.status = 'Completed'
+    edit_item.completed = request.user
+    edit_item.save()
+    return HttpResponseRedirect(reverse('ticket_details', args=[edit_item.id]))
