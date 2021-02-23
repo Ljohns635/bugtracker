@@ -21,7 +21,11 @@ def login_view(request):
                 messages.error(request, "Invalid username or password.")
 
     form = LoginForm()
-    return render(request, 'login.html', {'heading':'Login','form': form})
+    return render(request, 'login.html', {
+        'heading':'Login',
+        'subheading':'Sorry, you need to be authenticated to do that. Please log in below.',
+        'form': form
+        })
 
 @login_required
 def logout_view(request):
