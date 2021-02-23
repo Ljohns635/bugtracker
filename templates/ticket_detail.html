@@ -23,14 +23,14 @@
     {% if ticket.status == 'New' %}
     <span><a href="/edit/{{ticket.id}}/">Edit</a></span>
     <span><a href="/progress/{{ticket.id}}/">Assign Ticket to You</a></span>
-    <span><a href="#">Mark Ticket as invalid</a></span>
+    <span><a href="/completed/{{ticket.id}}/">Mark Ticket as invalid</a></span>
     {% elif ticket.status == 'In Progress' %}
     <span><a href="/edit/{{ticket.id}}/">Edit</a></span>
     <span><a href="/completed/{{ticket.id}}/">Complete</a></span>
-    <span><a href="#">Mark Ticket as Invalid</a></span>
+    <span><a href="/completed/{{ticket.id}}/">Mark Ticket as Invalid</a></span>
     {% else %}
     <span><a href="/edit/{{ticket.id}}/">Edit</a></span>
-    <span><a href="#">Mark Ticket as Invalid</a></span>
+    <span><a href="/completed/{{ticket.id}}/">Mark Ticket as Invalid</a></span>
     {% endif %}
 </body>
 </html>

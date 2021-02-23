@@ -116,3 +116,12 @@ def completed_status(request, status_id):
     edit_item.completed = request.user
     edit_item.save()
     return HttpResponseRedirect(reverse('ticket_details', args=[edit_item.id]))
+
+@login_required
+def invalid_status(request, status_id):
+    edit_item = Ticket.objects.get(id=status_id)
+    edit_item.status = invalid_status
+    # edit.item.assigned = None
+    # edit_item.completed = None
+    edit_item.save()
+    return HttpResponseRedirect(reverse('ticket_details', args=[edit_item.id]))

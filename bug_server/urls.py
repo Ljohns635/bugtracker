@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from bug_app.views import login_view, ticket_view, logout_view, submit_view, ticket_details, user_details, ticket_edit, progress_status, completed_status
+from bug_app.views import login_view, ticket_view, logout_view, submit_view, ticket_details, user_details, ticket_edit, progress_status, completed_status, invalid_status
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,5 +27,6 @@ urlpatterns = [
     path('edit/<int:ticket_id>/',ticket_edit, name='ticket_edit'),
     path('progress/<int:status_id>/',progress_status, name='progress_status'),
     path('completed/<int:status_id>/',completed_status, name='completed_status'),
+    path('invalid/<int:status_id>/',invalid_status, name='invalid_status'),
     path('user/<int:user_id>/', user_details, name='user_details'),
 ]
