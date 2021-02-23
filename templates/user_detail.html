@@ -14,11 +14,23 @@
     <h3>{{creator.tagline}}</h3>
     <h3>{{creator.email}}</h3>
 
-
+    <h2>Filed Tickets</h2>
     {% for item in tickets %}
-    <ul>
-    <li>Title: {{item.title}} Assigned: {{item.assigned}} Reported by: <a href="/user/{{item.creator.id}}">{{item.creator}}</a></li>
-    </ul>
+        {% if item.creator == request.user %}
+        <p>Title: {{item.title}} Assigned: {{item.assigned}} Reported by: <a href="/user/{{item.creator.id}}">{{item.creator}}</a></p>
+        {% endif %}
+    {% endfor %}
+    <h2>In Progress</h2>
+    {% for item in tickets %}
+        {% if item.status == 'In Progress' and item.assigned == request.user %}
+        <p>Title: {{item.title}} Assigned: {{item.assigned}} Reported by: <a href="/user/{{item.creator.id}}">{{item.creator}}</a></p>
+        {% endif %}
+    {% endfor %}
+    <h2>Completed</h2>
+    {% for item in tickets %}
+        {% if item.status == 'Completed' and item.assigned == request.user %}
+        <p>Title: {{item.title}} Assigned: {{item.assigned}} Reported by: <a href="/user/{{item.creator.id}}">{{item.creator}}</a></p>
+        {% endif %}
     {% endfor %}
 </body>
 </html>
