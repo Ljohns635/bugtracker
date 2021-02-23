@@ -124,4 +124,4 @@ def invalid_status(request, status_id):
     # edit.item.assigned = None
     # edit_item.completed = None
     edit_item.save()
-    return HttpResponseRedirect(reverse('ticket_details', args=[edit_item.id]))
+    return HttpResponseRedirect('/')
