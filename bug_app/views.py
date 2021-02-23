@@ -31,7 +31,7 @@ def logout_view(request):
 
 @login_required
 def ticket_view (request):
-    tickets = Ticket.objects.filter()
+    tickets = Ticket.objects.all()
     return render(request, 'tickets.html', {'tickets': tickets})
 
 @login_required
@@ -71,3 +71,32 @@ def ticket_details(request, ticket_id):
     ticket = Ticket.objects.get(id=ticket_id)
     return render(request, 'ticket_detail.html', {'ticket': ticket})
 
+@login_required
+def ticket_edit(request, ticket_id):
+    context = {}
+    edit_item = Ticket.objects.get(id=ticket_id)
+
+    if request.method == 'POST':
+        form = TicketForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            edit_item.title = data['title']
+            edit_item.description = data['description']
+            edit_item.creator = request.user
+            edit_item.save()
+            return HttpResponseRedirect(reverse('ticket_details', args=[edit_item.id]))
+    
+    form = TicketForm(
+        initial={'title': edit_item.title, 'description': edit_item.description, 'creator': edit_item.creator}
+    )
+    context.update({
+        'form': form,
+        'heading': 'Submit a Ticket',
+        'subheading': 'What\'s wrong? Something broken? Write it down!'
+    })
+    return render(request, 'submit.html', context)
+
+@login_required
+def ticket_status(request):
+    edit_item = Ticket.objects.get()
+    edit_item.assigned = 'In Progress'

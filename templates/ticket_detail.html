@@ -20,5 +20,19 @@
     <p>{{ ticket.description }}</p>
     <p>Assigned: {{ ticket.assigned }}</p>
     <p>Completed: {{ ticket.completed }}</p>
+    {% if ticket.status == 'New' %}
+    <span><a href="/edit/{{ticket.id}}/">Edit</a></span>
+    <span><a href="#">Assign Ticket to You</a></span>
+    <span><a href="#">Mark Ticket as invalid</a></span>
+    {% elif ticket.status == 'In Progress' %}
+    <span><a href="/edit/{{ticket.id}}/">Edit</a></span>
+    <span><a href="#">Complete</a></span>
+    <span><a href="#">Return Ticket</a></span>
+    <span><a href="#">Mark Ticket as Invalid</a></span>
+    {% else %}
+    <span><a href="/edit/{{ticket.id}}/">Edit</a></span>
+    <span><a href="#">Return Ticket</a></span>
+    <span><a href="#">Mark Ticket as Invalid</a></span>
+    {% endif %}
 </body>
 </html>

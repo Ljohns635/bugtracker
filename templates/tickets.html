@@ -10,19 +10,28 @@
     <span><a href="/">Home</a></span>
     <span><a href="/submit">Submit Ticket</a></span>
     <span><a href="/logout">Logout</a></span>
-    {% comment %} {% for item in tickets %}
-        <p>Title {{item.title}} Assigned: {{item.assigned}} Reported by: {{item.creator}}</p>
-    {% endfor %} {% endcomment %}
+    <h2>New Tickets</h2>
     {% for item in tickets %}
         {% if item.status == 'New' %}
-        <h2>New Tickets</h2>
-        <p>Title {{item.title}} Assigned: {{item.assigned}} Reported by: {{item.creator}}</p>
-        {% elif item.status == 'In Progress'%}
-        <h2>In Progress Tickets</h2>
-        <p>Title {{item.title}} Assigned: {{item.assigned}} Reported by: {{item.creator}}</p>
-        {% else %}
-        <h2>Done Tickets</h2>
-        <p>Title {{item.title}} Assigned: {{item.assigned}} Reported by: {{item.creator}}</p>
+        <p>Title: <a href="/ticket/{{item.id}}/">{{item.title}}</a>
+        Assigned: {{item.assigned}}
+        Reported by: <a href="/user/{{item.creator.id}}">{{item.creator}}</a></p>
+        {% endif %}
+    {% endfor %}
+    <h2>In Progress Tickets</h2>
+    {% for item in tickets %}
+        {% if item.status == 'In Progress' %}
+        <p>Title: <a href="/ticket/{{item.id}}/">{{item.title}}</a>
+        Assigned: <a href="/user/{{item.assigned.id}}">{{item.assigned}}</a>
+        Reported by: <a href="/user/{{item.creator.id}}">{{item.creator}}</a></p>
+        {% endif %}
+    {% endfor %}
+    <h2>Done Tickets</h2>
+    {% for item in tickets %}
+        {% if item.status == 'Completed' %}
+        <p>Title: <a href="/ticket/{{item.id}}/">{{item.title}}</a>
+        Assigned: <a href="/user/{{item.assigned.id}}">{{item.assigned}}</a>
+        Reported by: <a href="/user/{{item.creator.id}}">{{item.creator}}</a></p>
         {% endif %}
     {% endfor %}
 </body>
