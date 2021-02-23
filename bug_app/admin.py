@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from bug_app.models import CustomUser
+from bug_app.models import CustomUser, Ticket
 
 OTHER_FIELD = (
     (None, {'fields': ('tagline',)}),
@@ -13,3 +13,4 @@ class CustomUserAdmin(UserAdmin):
     fieldsets = UserAdmin.fieldsets + OTHER_FIELD
 
 admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(Ticket)

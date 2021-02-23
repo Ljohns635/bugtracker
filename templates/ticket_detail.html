@@ -7,14 +7,15 @@
     <title>Document</title>
 </head>
 <body>
-    <span><a href="/login">Home</a></span>
+    <span><a href="/">Home</a></span>
     <span><a href="/submit">Submit Ticket</a></span>
     <span><a href="/logout">Logout</a></span>
 
-    <h1>{{ ticket.title}} </h1>
+    <h1>{{ticket.id}} {{ ticket.title}} </h1>
     <h3>Info</h3>
     <p>Status: {{ ticket.status }}</p>
-    <p>Reported by: {{ ticket.creator }}</p>
+    <p>Submitted on: {{ticket.created_at}}</p>
+    <p>Reported by: <a href="/user/{{ticket.creator.id}}">{{ ticket.creator }}</a></p>
     <h3>Description</h3>
     <p>{{ ticket.description }}</p>
     <p>Assigned: {{ ticket.assigned }}</p>

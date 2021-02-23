@@ -10,13 +10,15 @@
     <span><a href="/">Home</a></span>
     <span><a href="/submit">Submit Ticket</a></span>
     <span><a href="/logout">Logout</a></span>
+    <h1>{{creator.first_name}}</h1>
+    <h3>{{creator.tagline}}</h3>
+    <h3>{{creator.email}}</h3>
 
-    <h1>{{ heading }}</h1>
-    <h3>{{ subheading }}</h3>
-    <form action="" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Submit">
-    </form>
+
+    {% for item in tickets %}
+    <ul>
+    <li>Title: {{item.title}} Assigned: {{item.assigned}} Reported by: <a href="/user/{{item.creator.id}}">{{item.creator}}</a></li>
+    </ul>
+    {% endfor %}
 </body>
 </html>

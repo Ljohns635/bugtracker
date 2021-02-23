@@ -31,7 +31,8 @@ def logout_view(request):
 
 @login_required
 def ticket_view (request):
-    return render(request, 'tickets.html', {'heading': 'This is the ticket page'})
+    tickets = Ticket.objects.filter()
+    return render(request, 'tickets.html', {'tickets': tickets})
 
 @login_required
 def submit_view(request):
@@ -42,7 +43,8 @@ def submit_view(request):
             data = form.cleaned_data
             new_data = Ticket.objects.create(
                 title = data['title'],
-                description = data['description']
+                description = data['description'],
+                creator = request.user
             )
             return HttpResponseRedirect(reverse('ticket_details', args=[new_data.id]))
     
@@ -53,6 +55,16 @@ def submit_view(request):
         'subheading': 'What\'s wrong? Something broken? Write it down!'
     })
     return render(request, 'submit.html', context)
+
+@login_required
+def user_details(request, user_id):
+    user_obj = CustomUser.objects.get(id=user_id)
+    tickets = Ticket.objects.filter(creator=user_obj)
+    return render(request, 'user_detail.html', {
+        'creator': user_obj,
+        'tickets': tickets,
+    })
+
 
 @login_required
 def ticket_details(request, ticket_id):

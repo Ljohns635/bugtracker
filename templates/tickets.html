@@ -7,10 +7,23 @@
     <title>Document</title>
 </head>
 <body>
-    <span><a href="/login">Home</a></span>
+    <span><a href="/">Home</a></span>
     <span><a href="/submit">Submit Ticket</a></span>
     <span><a href="/logout">Logout</a></span>
-
-    <h1>{{ heading }}</h1>
+    {% comment %} {% for item in tickets %}
+        <p>Title {{item.title}} Assigned: {{item.assigned}} Reported by: {{item.creator}}</p>
+    {% endfor %} {% endcomment %}
+    {% for item in tickets %}
+        {% if item.status == 'New' %}
+        <h2>New Tickets</h2>
+        <p>Title {{item.title}} Assigned: {{item.assigned}} Reported by: {{item.creator}}</p>
+        {% elif item.status == 'In Progress'%}
+        <h2>In Progress Tickets</h2>
+        <p>Title {{item.title}} Assigned: {{item.assigned}} Reported by: {{item.creator}}</p>
+        {% else %}
+        <h2>Done Tickets</h2>
+        <p>Title {{item.title}} Assigned: {{item.assigned}} Reported by: {{item.creator}}</p>
+        {% endif %}
+    {% endfor %}
 </body>
 </html>

@@ -17,8 +17,8 @@ class Ticket(models.Model):
     description = models.TextField()
     creator = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     status = models.CharField(max_length=14, choices=TICKET_STATUS_CHOICES, default='New')
-    assigned = models.ForeignKey(CustomUser, related_name='assigned_ticket', on_delete=models.CASCADE, null=True)
-    completed = models.ForeignKey(CustomUser, related_name='completed_ticket', on_delete=models.CASCADE, null=True)
+    assigned = models.ForeignKey(CustomUser, related_name='assigned_ticket', on_delete=models.CASCADE, null=True, blank=True)
+    completed = models.ForeignKey(CustomUser, related_name='completed_ticket', on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return f'{self.title} | {self.creator}'
