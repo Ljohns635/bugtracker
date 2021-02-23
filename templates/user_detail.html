@@ -1,42 +1,125 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" 
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"
+    >
+    <link rel="stylesheet" href="{% static 'homepage.css' %}">
     <title>Document</title>
 </head>
 <body>
-    <span><a href="/">Home</a></span>
-    <span><a href="/submit">Submit Ticket</a></span>
-    <span><a href="/logout">Logout</a></span>
-    <h1>{{creator.first_name}}</h1>
-    <h3>{{creator.tagline}}</h3>
-    <h3>{{creator.email}}</h3>
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="/" role="tab" aria-controls="pills-home" aria-selected="true">Home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="/submit" role="tab" aria-controls="pills-profile" aria-selected="false">Submit Ticket</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="/logout" role="tab" aria-controls="pills-contact" aria-selected="false">Logout</a>
+    </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">...</div>
+    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
+    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
+    </div>
 
+    <div class="card">
+        <div class="card-body">
+            <h2>{{creator.first_name}}</h2>
+            <h4>{{creator.tagline}}</h4>
+            <h4>{{creator.email}}</h4> 
+        </div>
+    </div>
+
+
+    <div class="card">
     <h2>Filed Tickets</h2>
-    {% for item in tickets %}
-        {% if item.creator == request.user %}
-        <p>Title: <a href="/ticket/{{item.id}}/">{{item.title}}</a>
-        Assigned: <a href="/user/{{item.assigned.id}}">{{item.assigned}}</a>
-        Reported by: <a href="/user/{{item.creator.id}}">{{item.creator}}</a></p>
-        {% endif %}
-    {% endfor %}
-    <h2>In Progress</h2>
-    {% for item in tickets %}
-        {% if item.status == 'In Progress' and item.assigned == request.user %}
-        <p>Title: <a href="/ticket/{{item.id}}/">{{item.title}}</a>
-        Assigned: <a href="/user/{{item.assigned.id}}">{{item.assigned}}</a>
-        Reported by: <a href="/user/{{item.creator.id}}">{{item.creator}}</a></p>
-        {% endif %}
-    {% endfor %}
-    <h2>Completed</h2>
-    {% for item in tickets %}
-        {% if item.status == 'Completed' and item.assigned == request.user %}
-        <p>Title: <a href="/ticket/{{item.id}}/">{{item.title}}</a>
-        {% comment %} Assigned: <a href="/user/{{item.assigned.id}}">{{item.assigned}}</a> {% endcomment %}
-        Reported by: <a href="/user/{{item.creator.id}}">{{item.creator}}</a></p>
-        {% endif %}
-    {% endfor %}
+        <div class="card-body">
+            {% for item in tickets %}
+                {% if item.creator == request.user %}
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Assigned to</th>
+                            <th scope="col">Reported by</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <th scope="row">{{item.id}}</th>
+                            <td><a href="/ticket/{{item.id}}/">{{item.title}}</a></td>
+                            <td><a href="/user/{{item.assigned.id}}">{{item.assigned}}</td>
+                            <td><a href="/user/{{item.creator.id}}">{{item.creator}}</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="card">
+     <h2>In Progress</h2>
+        <div class="card-body">
+            {% for item in tickets %}
+                {% if item.status == 'In Progress' and item.assigned == request.user %}
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Assigned to</th>
+                            <th scope="col">Reported by</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <th scope="row">{{item.id}}</th>
+                            <td><a href="/ticket/{{item.id}}/">{{item.title}}</a></td>
+                            <td><a href="/user/{{item.assigned.id}}">{{item.assigned}}</td>
+                            <td><a href="/user/{{item.creator.id}}">{{item.creator}}</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="card">
+     <h2>Completed</h2>
+        <div class="card-body">
+            {% for item in tickets %}
+                {% if item.status == 'Completed' and item.assigned == request.user %}
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Assigned to</th>
+                            <th scope="col">Reported by</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <th scope="row">{{item.id}}</th>
+                            <td><a href="/ticket/{{item.id}}/">{{item.title}}</a></td>
+                            <td><a href="/user/{{item.assigned.id}}">{{item.assigned}}</td>
+                            <td><a href="/user/{{item.creator.id}}">{{item.creator}}</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
 </body>
 </html>

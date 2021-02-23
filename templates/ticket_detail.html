@@ -1,36 +1,59 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" 
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"
+    >
+    <link rel="stylesheet" href="{% static 'homepage.css' %}">
 </head>
 <body>
-    <span><a href="/">Home</a></span>
-    <span><a href="/submit">Submit Ticket</a></span>
-    <span><a href="/logout">Logout</a></span>
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="/" role="tab" aria-controls="pills-home" aria-selected="true">Home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="/submit" role="tab" aria-controls="pills-profile" aria-selected="false">Submit Ticket</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="/logout" role="tab" aria-controls="pills-contact" aria-selected="false">Logout</a>
+    </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">...</div>
+    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
+    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
+    </div>
 
-    <h1>{{ticket.id}} {{ ticket.title}} </h1>
-    <h3>Info</h3>
-    <p>Status: {{ ticket.status }}</p>
-    <p>Submitted on: {{ticket.created_at}}</p>
-    <p>Reported by: <a href="/user/{{ticket.creator.id}}">{{ ticket.creator }}</a></p>
-    <h3>Description</h3>
-    <p>{{ ticket.description }}</p>
-    <p>Assigned: {{ ticket.assigned }}</p>
-    <p>Completed: {{ ticket.completed }}</p>
-    {% if ticket.status == 'New' %}
-    <span><a href="/edit/{{ticket.id}}/">Edit</a></span>
-    <span><a href="/progress/{{ticket.id}}/">Assign Ticket to You</a></span>
-    <span><a href="/completed/{{ticket.id}}/">Mark Ticket as invalid</a></span>
-    {% elif ticket.status == 'In Progress' %}
-    <span><a href="/edit/{{ticket.id}}/">Edit</a></span>
-    <span><a href="/completed/{{ticket.id}}/">Complete</a></span>
-    <span><a href="/completed/{{ticket.id}}/">Mark Ticket as Invalid</a></span>
-    {% else %}
-    <span><a href="/edit/{{ticket.id}}/">Edit</a></span>
-    <span><a href="/completed/{{ticket.id}}/">Mark Ticket as Invalid</a></span>
-    {% endif %}
+    <div class="card">
+        <div class="card-body">
+            <h1>{{ticket.id}} {{ ticket.title}} </h1>
+            <h3>Info</h3>
+            <p>Status: {{ ticket.status }}</p>
+            <p>Submitted on: {{ticket.created_at}}</p>
+            <p>Reported by: <a href="/user/{{ticket.creator.id}}">{{ ticket.creator }}</a></p>
+            <h3>Description</h3>
+            <p>{{ ticket.description }}</p>
+            <p>Assigned: {{ ticket.assigned }}</p>
+            <p>Completed: {{ ticket.completed }}</p>
+            {% if ticket.status == 'New' %}
+            <span><a href="/edit/{{ticket.id}}/">Edit</a></span>
+            <span><a href="/progress/{{ticket.id}}/">Assign Ticket to You</a></span>
+            <span><a href="/completed/{{ticket.id}}/">Mark Ticket as invalid</a></span>
+            {% elif ticket.status == 'In Progress' %}
+            <span><a href="/edit/{{ticket.id}}/">Edit</a></span>
+            <span><a href="/completed/{{ticket.id}}/">Complete</a></span>
+            <span><a href="/completed/{{ticket.id}}/">Mark Ticket as Invalid</a></span>
+            {% else %}
+            <span><a href="/edit/{{ticket.id}}/">Edit</a></span>
+            <span><a href="/completed/{{ticket.id}}/">Mark Ticket as Invalid</a></span>
+            {% endif %}
+        </div>
+    </div>
+
 </body>
 </html>
