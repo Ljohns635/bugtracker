@@ -30,28 +30,66 @@
     </div>
 
     <div class="card">
+    <h2>Info: {{ ticket.title}}</h2>
+       {% if ticket.status == 'New' %}
+        <ul class="nav justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link active"href="/edit/{{ticket.id}}/">Edit</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/progress/{{ticket.id}}/">Assign Ticket to You</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/invalid/{{ticket.id}}/">Mark Ticket as invalid</a>
+            </li>
+        </ul>
+        {% elif ticket.status == 'In Progress' %}
+        <ul class="nav justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link active"href="/edit/{{ticket.id}}/">Edit</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/completed/{{ticket.id}}/">Complete</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/invalid/{{ticket.id}}/">Mark Ticket as invalid</a>
+            </li>
+        </ul>
+        {% else %}
+        <ul class="nav justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link active"href="/edit/{{ticket.id}}/">Edit</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/invalid/{{ticket.id}}/">Mark Ticket as invalid</a>
+            </li>
+        </ul>
+        {% endif %}
         <div class="card-body">
-            <h1>{{ticket.id}} {{ ticket.title}} </h1>
-            <h3>Info</h3>
-            <p>Status: {{ ticket.status }}</p>
-            <p>Submitted on: {{ticket.created_at}}</p>
-            <p>Reported by: <a href="/user/{{ticket.creator.id}}">{{ ticket.creator }}</a></p>
-            <h3>Description</h3>
-            <p>{{ ticket.description }}</p>
-            <p>Assigned: {{ ticket.assigned }}</p>
-            <p>Completed: {{ ticket.completed }}</p>
-            {% if ticket.status == 'New' %}
-            <span><a href="/edit/{{ticket.id}}/">Edit</a></span>
-            <span><a href="/progress/{{ticket.id}}/">Assign Ticket to You</a></span>
-            <span><a href="/invalid/{{ticket.id}}/">Mark Ticket as invalid</a></span>
-            {% elif ticket.status == 'In Progress' %}
-            <span><a href="/edit/{{ticket.id}}/">Edit</a></span>
-            <span><a href="/completed/{{ticket.id}}/">Complete</a></span>
-            <span><a href="/invalid/{{ticket.id}}/">Mark Ticket as Invalid</a></span>
-            {% else %}
-            <span><a href="/edit/{{ticket.id}}/">Edit</a></span>
-            <span><a href="/invalid/{{ticket.id}}/">Mark Ticket as Invalid</a></span>
-            {% endif %}
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                    <th scope="col">Ticket Id</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Submited on</th>
+                    <th scope="col">Reported by</th>
+                    <th scope="col">Assigned</th>
+                    <th scope="col">Completed</th>
+                    <th scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">{{ticket.id}}</th>
+                        <td>{{ ticket.status }}</td>
+                        <td>{{ticket.created_at}}</td>
+                        <td><a href="/user/{{ticket.creator.id}}">{{ ticket.creator }}</a></td>
+                        <td>{{ ticket.assigned }}</td>
+                        <td>{{ ticket.completed }}</td>
+                        <td colspan="2">{{ ticket.description }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
