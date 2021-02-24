@@ -98,7 +98,7 @@
      <h2>Completed</h2>
         <div class="card-body">
             {% for item in tickets %}
-                {% if item.status == 'Completed' and item.assigned == request.user %}
+                {% if item.status == 'Completed' and item.completed == request.user %}
                     <table class="table table-striped">
                         <thead>
                             <tr>
