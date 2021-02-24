@@ -48,3 +48,7 @@ form {
     position: absolute;
     margin-top: -20%; 
 }
+
+table {
+    table-layout: fixed;
+}
