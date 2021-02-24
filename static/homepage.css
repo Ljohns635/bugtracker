@@ -59,3 +59,16 @@ table {
     margin-left:-50%;
 }
 }
+
+#pills-profile-tab {
+    border: 1px solid #337ab7;
+}
+
+#pills-contact-tab {
+    border: 1px solid rgb(184, 37, 37);
+    
+}
+
+#pills-tab {
+    background-color: #f4f4f47a;
+}
