@@ -114,3 +114,32 @@
     </div>
 </body>
 </html>
+    <div class="card">
+    <h2>Invalid Tickets</h2>
+        <div class="card-body">
+            {% for item in tickets %}
+                {% if item.status == 'invalid' %}
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Assigned to</th>
+                            <th scope="col">Reported by</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <th scope="row">{{item.id}}</th>
+                            <td><a href="/ticket/{{item.id}}/">{{item.title}}</a></td>
+                            <td>{{item.assigned}}</td>
+                            <td>{{item.creator}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
