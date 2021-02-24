@@ -29,3 +29,22 @@ a {
     color: #aaa;
 }
 
+input, label {
+    display:block;
+}
+
+input {
+    width: 800px;
+}
+
+textarea {
+    width: 800px;
+}
+
+form {
+    left: 50%;
+    top: 50%;
+    margin-left: -25%;
+    position: absolute;
+    margin-top: -20%; 
+}
