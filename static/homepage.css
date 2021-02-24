@@ -52,3 +52,10 @@ form {
 table {
     table-layout: fixed;
 }
+
+@media screen and (max-width: 600px) {
+  form {
+    width: 100%;
+    margin-left:-50%;
+}
+}
