@@ -112,8 +112,9 @@ def progress_status(request, status_id):
 @login_required
 def completed_status(request, status_id):
     edit_item = Ticket.objects.get(id=status_id)
+    edit_user = CustomUser.objects.get(username=request.user.username)
     edit_item.status = 'Completed'
-    edit_item.completed = request.user
+    edit_item.completed = edit_user
     edit_item.assigned = None
     edit_item.save()
     return HttpResponseRedirect(reverse('ticket_details', args=[edit_item.id]))
